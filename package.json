@@ -5,7 +5,8 @@
   "homepage": "https://github.com/CaiWenlie/JStore",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "types": "tsc lib/main.ts --declaration --declarationDir types --emitDeclarationOnly",
+    "build": "npm run types && vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
@@ -21,10 +22,12 @@
     "vue-tsc": "^0.0.24"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "./dist/jstore.umd.js",
   "module": "./dist/jstore.es.js",
+  "types": "types/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/jstore.es.js",
