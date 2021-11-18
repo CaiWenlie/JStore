@@ -13,16 +13,19 @@ export default class JStore<T = any> {
       return this.fetching
     }
     this.fetching = this._fetch()
+      .finally(() => {
+        this.fetching = undefined
+      })
     const data = await this.fetching
     this.data = data
     this.cached = true
-    this.fetching = undefined
+    return data
   }
   
   // 获取缓存的数据
   async get() {
     if (this.cached) {
-      return this.data
+      return this.data!
     } else {
       return this.fetch()
     }
